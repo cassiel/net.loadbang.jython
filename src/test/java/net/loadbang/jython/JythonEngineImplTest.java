@@ -298,7 +298,7 @@ public class JythonEngineImplTest {
 
 		Engine engine = new JythonEngineImpl(proxy);
 
-		engine.runScript("test-data/script", "hello.py");
+		engine.runScript("src/test/resources/test-data/script", "hello.py");
 	}
 	
 	@Test
@@ -312,7 +312,7 @@ public class JythonEngineImplTest {
 
 		Engine engine = new JythonEngineImpl(proxy);
 		
-		engine.setupEngineOnPlaceHolder("test-data/place");
+		engine.setupEngineOnPlaceHolder("src/test/resources/test-data/place");
 		engine.runUsingPlaceHolder("myscript.py");
 	}
 	
@@ -327,8 +327,8 @@ public class JythonEngineImplTest {
 
 		Engine engine = new JythonEngineImpl(proxy);
 		
-		engine.setupEngineOnPlaceHolder("test-data/place-a");
-		engine.setupEngineOnPlaceHolder("test-data/place-b");
+		engine.setupEngineOnPlaceHolder("src/test/resources/test-data/place-a");
+		engine.setupEngineOnPlaceHolder("src/test/resources/test-data/place-b");
 
 		engine.runUsingPlaceHolder("lookForA.py");
 	}
@@ -361,7 +361,7 @@ public class JythonEngineImplTest {
 		Engine engine2 = new JythonEngineImpl(proxy2);
 		
 		engine1.setVar("engine2", engine2);
-		engine1.runScript("test-data/script", "thread-test-1.py");
+		engine1.runScript("src/test/resources/test-data/script", "thread-test-1.py");
 	}
 	
 	@Test
@@ -373,7 +373,7 @@ public class JythonEngineImplTest {
 
 		Engine engine = new JythonEngineImpl(proxy);
 		
-		engine.runScript("test-data/script", "faulty.py");
+		engine.runScript("src/test/resources/test-data/script", "faulty.py");
 	}
 	
 	@Test
@@ -393,7 +393,7 @@ public class JythonEngineImplTest {
 		final MaxObjectProxy proxy = itsContext.mock(MaxObjectProxy.class);
 
 		itsContext.checking(new Expectations() {{
-			one(proxy).error("HELLO WORLD");
+			one(proxy).error(with(any(String.class)));
 		}});
 
 		Engine engine = new JythonEngineImpl(proxy);
