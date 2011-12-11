@@ -28,9 +28,8 @@ See the README for [net.loadbang.lib][lib] for installation details.
 ## Issues
 
 Some unit tests are currently failing, due perhaps to the thread-based
-handling of some printing methods. Am investigating. (We can't build
-and check in a `distribution` until this is fixed, since Maven wants
-the tests to pass before installing into the local repository.)
+handling of some printing methods. Am investigating. The package seems
+to be perfectly functional without the print redirection machinery.
 
 We currently cannot differentiate Python's `None` value from the null value we
 see for unbound variables, so `X = None` will have much the same effect

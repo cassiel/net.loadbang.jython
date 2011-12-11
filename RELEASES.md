@@ -1,3 +1,7 @@
+## 1.2.1, 2011-12-11:
+
+* Ported VERSION properties, needed for greeting message.
+
 ## 1.2.0, 2011-12-08:
 
 * Project converted to Maven and moved to GitHub.
