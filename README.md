@@ -46,7 +46,7 @@ is done in its own (synchronised) thread.
 
 The JavaDocs can be generated from Maven by
 
-	mvn javadoc:javadoc
+        mvn javadoc:javadoc
 
 The documentation is written to `target/site/apidocs`.
 
@@ -54,7 +54,7 @@ The documentation is written to `target/site/apidocs`.
 
 Distributed under the [GNU General Public License][gpl].
 
-Copyright (C) 2011 Nick Rothwell.
+Copyright (C) 2012 Nick Rothwell.
 
 [max]: http://cycling74.com/products/max/
 [jython]: http://jython.org
