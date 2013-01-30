@@ -18,7 +18,7 @@ with an extensive utility library written in Python itself.
 
 For more information on Jython, see the [home page][jython].
 
-The prebuilt JAR files are in the sub-directory `distribution`, or the
+The prebuilt JAR files are in the [distribution][dist], or the
 library can be built from the enclosed sources using Maven. (For the
 Maven build, clone and build [net.loadbang.scripting][scripting]
 first, since our libraries are not yet in a central repository.)
@@ -61,3 +61,4 @@ Copyright (C) 2012 Nick Rothwell.
 [scripting]: https://github.com/cassiel/net.loadbang.scripting
 [lib]: https://github.com/cassiel/net.loadbang.lib
 [gpl]: http://www.gnu.org/copyleft/gpl.html
+[dist]: http://cassiel.github.com/net.loadbang.jython/distribution.zip
