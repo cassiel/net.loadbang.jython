@@ -1,3 +1,8 @@
+## 1.3.0, 2013-01-30:
+
+* Dependency on Jython bumped to 2.5.3. Version dependencies on other
+  net.loadbang libraries bumped as well.
+
 ## 1.2.1, 2011-12-11:
 
 * Ported VERSION properties, needed for greeting message.
