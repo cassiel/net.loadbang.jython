@@ -25,6 +25,21 @@ first, since our libraries are not yet in a central repository.)
 
 See the README for [net.loadbang.lib][lib] for installation details.
 
+## Jython 2.7
+
+Following some prompting from [Nathanaël Lécaudé][nat],
+I've done a quick test with an
+alpha release of Jython 2.7 from [here][j27]. Everything seems to work fine.
+
+2.7 isn't yet available from any Maven repositories, so it'll need to be
+downloaded manually and installed using the installer above. There's no
+standalone release, so Max's JAR search directories need to include both
+`jython.jar` and `Lib` (which will be unpacked into `cachedir` on first
+launch).
+
+[j27]: http://sourceforge.net/projects/jython/files/jython-dev/2.7.0a2/
+[nat]: http://studioimaginaire.com/en/author/nat/
+
 ## Issues
 
 Some unit tests are currently failing, due perhaps to the thread-based
