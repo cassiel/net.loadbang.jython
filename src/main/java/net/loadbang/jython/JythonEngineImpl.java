@@ -63,6 +63,11 @@ public class JythonEngineImpl extends EngineImpl {
 	/** Converters between Atoms and Python objects. */
 
 	private JythonConverters itsConverters;
+
+	/** Optional flag to *not* create a sub-thread. Probably faster, but not safe
+ 		if a thread can pass through more than one mxj instance. */
+
+	private boolean itsMonoThreaded;
 	
 	static {
 		PythonInterpreter.initialize(System.getProperties(), null, new String[] { });
@@ -103,9 +108,11 @@ public class JythonEngineImpl extends EngineImpl {
 	 */
 	@Override
 	public void eval(final String expr) {
-		new Invocation() { @Override public void invoke() {
-			getProxy().outlet(0, itsShellInterpreter.eval(expr));
-		}}.protect();
+		new Invocation(itsMonoThreaded) {
+			@Override public void invoke() {
+				getProxy().outlet(0, itsShellInterpreter.eval(expr));
+			}
+		}.protect();
 	}
 
 	/** Execute a Python statement.
@@ -119,9 +126,11 @@ public class JythonEngineImpl extends EngineImpl {
 
 	@Override
 	public void exec(final String statement) {
-		new Invocation() { @Override public void invoke() {
-			itsShellInterpreter.exec(statement);
-		}}.protect();
+		new Invocation(itsMonoThreaded) {
+			@Override public void invoke() {
+				itsShellInterpreter.exec(statement);
+			}
+		}.protect();
 	}
 	
 	/**	Invoke a named function in Python: called from the MXJ world by a
@@ -142,7 +151,7 @@ public class JythonEngineImpl extends EngineImpl {
 		//	permanently installed) - everything works from the same dictionary
 		//	anyway.
 		
-		new Invocation() { @Override public void invoke() {
+		new Invocation(itsMonoThreaded) { @Override public void invoke() {
 			PyObject f00 = itsShellInterpreter.get(fn);
 			
 			if (f00 == null) {
@@ -202,7 +211,7 @@ public class JythonEngineImpl extends EngineImpl {
 	public void runScript(final String directory, final String filename) {
 		final PythonInterpreter interpreter = createPathedInterpreter(directory);
 		
-		new Invocation() { @Override public void invoke() {
+		new Invocation(itsMonoThreaded) { @Override public void invoke() {
 			interpreter.execfile(new File(directory, filename).getPath());
 		}}.protect();
 	}
@@ -316,9 +325,14 @@ public class JythonEngineImpl extends EngineImpl {
 		if (itsInterpreter00 == null) {
 			getProxy().error("engine not loaded: place-holder problem?");
 		} else {
-			new Invocation() { @Override public void invoke() {
+			new Invocation(itsMonoThreaded) { @Override public void invoke() {
 				itsInterpreter00.execfile(new File(itsPlaceHolderDirectory, name).getPath());
 			}}.protect();
 		}
+	}
+
+	public void setMonoThreaded(boolean monoThreaded) {
+		System.out.println("setting monoThreaded=" + monoThreaded);
+		itsMonoThreaded = monoThreaded;
 	}
 }

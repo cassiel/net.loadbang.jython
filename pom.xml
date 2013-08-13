@@ -7,7 +7,7 @@
 
   <groupId>net.loadbang</groupId>
   <artifactId>net.loadbang.jython</artifactId>
-  <version>1.3.0</version>
+  <version>1.4.0</version>
   <packaging>jar</packaging>
 
   <name>net.loadbang.jython</name>

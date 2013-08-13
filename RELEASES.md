@@ -1,3 +1,9 @@
+## 1.4.0, 2013-08-13:
+
+* Added an MXJ attribute `monothreaded` to suppress the new thread per
+  call - probably not safe when a thread calls through multiple `mxj`
+  instances.
+
 ## 1.3.0, 2013-01-30:
 
 * Dependency on Jython bumped to 2.5.3. Version dependencies on other

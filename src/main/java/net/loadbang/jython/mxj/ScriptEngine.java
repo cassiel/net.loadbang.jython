@@ -33,6 +33,8 @@ import com.cycling74.max.Atom;
 */
 
 public class ScriptEngine extends ScriptEngineBase {
+	private boolean itsMonoThreaded;
+	private JythonEngineImpl itsJyEngine;
 	/** Constructor: delegates the work to {@link JythonEngineImpl}.
 
 	 	@param args arguments to the MXJ instance
@@ -43,7 +45,8 @@ public class ScriptEngine extends ScriptEngineBase {
 			  "net.loadbang.jython",
 			  ScriptEngine.class,
 			  args,
-			  ".py"
+			  ".py",
+			  "MonoThreaded"
 			 );
 	}
 
@@ -55,6 +58,17 @@ public class ScriptEngine extends ScriptEngineBase {
 	
 	@Override
 	protected Engine buildEngine(MaxObjectProxy proxy) {
-		return new JythonEngineImpl(proxy);
+		System.out.println("building engine");
+		itsJyEngine = new JythonEngineImpl(proxy);
+		return itsJyEngine;
+	}
+
+	public boolean getMonoThreaded() {
+		return itsMonoThreaded;
+	}
+
+	public void setMonoThreaded(boolean monoThreaded) {
+		itsMonoThreaded = monoThreaded;
+		itsJyEngine.setMonoThreaded(monoThreaded);
 	}
 }

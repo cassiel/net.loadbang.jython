@@ -10,8 +10,16 @@ package net.loadbang.jython.util;
  */
 
 abstract public class Invocation implements Runnable {
+	/** Optional flag to *not* create a sub-thread. Probably faster, but not safe
+	 	if a thread can pass through more than one mxj instance. */
+	private boolean itsMonoThreaded;
+
 	/**	Abstract method: make a call into a Jython interpreter
 	 	in an interlocked thread. */
+	
+	public Invocation(boolean monoThreaded) {
+		itsMonoThreaded = monoThreaded;
+	}
 
 	abstract public void invoke();
 	
@@ -34,11 +42,15 @@ abstract public class Invocation implements Runnable {
 	 */
 	
 	public synchronized void protect() {
-		Thread t = new Thread(this);
-		t.start();
+		if (itsMonoThreaded) {
+			invoke();
+		} else {
+			Thread t = new Thread(this);
+			t.start();
 
-		try {
-			wait();
-		} catch (InterruptedException _) { }
+			try {
+				wait();
+			} catch (InterruptedException _) { }
+		}
 	}
 }
